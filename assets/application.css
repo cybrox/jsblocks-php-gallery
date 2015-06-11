@@ -27,11 +27,20 @@ body {
         position: absolute;
         right: 0;
         left: 0;
+        top: 0;
+        bottom: 0;
         margin-left: auto;
         margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
         max-width: 100%;
         box-shadow: 0 0 5px #333;
     }
+
+    #image-object:hover {
+        cursor: pointer;
+    }
+    
 
 #sidebar {
     position: absolute;

@@ -5,7 +5,7 @@ var Image = App.Model({
 
     active: blocks.observable(false),
 
-    setImage: function(event) {
+    setImage: function(e) {
         window.location.hash = this.name();
         this.collection().forEach(function(img) {
             img.active(false);
@@ -29,6 +29,14 @@ App.View('Gallery', {
         if (filter === undefined) return true;
         return value.name().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
     }),
+
+    openImage: function(e) {
+        var url  = window.location.href.replace(window.location.hash, "");
+            url += window.__imgdir.replace("./", "");
+            url += '/'+this.image();
+
+        window.open(url);
+    },
 
     init: function() {
         this.images()[0].setImage();

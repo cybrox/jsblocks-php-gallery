@@ -19,6 +19,7 @@
     <title>gallery</title>
 
     <script type="text/javascript">
+        window.__imgdir = "<?php echo IMGDIR; ?>";
         window.__images = <?php echo json_encode($images); ?>;
     </script>
 
@@ -30,7 +31,7 @@
 
     <section id="image">
         <div id="image-holder">
-            <img id="image-object" src="<?php echo IMGDIR; ?>/{{image}}" />
+            <img id="image-object" src="<?php echo IMGDIR; ?>/{{image}}" data-query="click(openImage).on('touchend', openImage)"/>
         </div>
     </section>
 
