@@ -7,7 +7,7 @@
         while ($image = readdir($directory)) {
             if ($image != "." && $image != "..") {
                 if (in_array(substr($image, -4), array('.jpg', '.JPG', '.png', '.PNG')))
-                    array_push($images, array("name" => $image, "isActive" => false));
+                    array_push($images, array("name" => $image));
             }
         }
         closedir($directory);
@@ -30,7 +30,7 @@
 
     <section id="image">
         <div id="image-holder">
-            <img id="image-object" src="#" />
+            <img id="image-object" src="<?php echo IMGDIR; ?>/{{image}}" />
         </div>
     </section>
 
@@ -39,7 +39,7 @@
             <input type="text" placeholder="filter..." data-query="val(filterValue)"/>
         </div>
         <div id="sidebar-list" data-query="each(images.view)">
-            <div class="sidebar-item">
+            <div class="sidebar-item" data-query="click(setImage).on('touchend', setImage).setClass('active', active)">
                 &#128196; {{name}}
             </div>
         </div>
