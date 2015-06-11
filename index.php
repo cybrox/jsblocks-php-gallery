@@ -7,7 +7,7 @@
         while ($image = readdir($directory)) {
             if ($image != "." && $image != "..") {
                 if (in_array(substr($image, -4), array('.jpg', '.JPG', '.png', '.PNG')))
-                    array_push($images, $image);
+                    array_push($images, array("name" => $image, "isActive" => false));
             }
         }
         closedir($directory);
@@ -17,14 +17,33 @@
 <html>
 <head>
     <title>gallery</title>
-    
+
     <script type="text/javascript">
-        var __images = <?php echo json_encode($images); ?>;
+        window.__images = <?php echo json_encode($images); ?>;
     </script>
+
+    <script type="text/javascript" src="http://jsblocks.com/blocks/0.3.2/blocks.js"></script>
+    <script type="text/javascript" src="assets/application.js"></script>
+    <link rel="stylesheet" href="assets/application.css" />
 </head>
-<body>
+<body data-query="view(Gallery)">
 
+    <section id="image">
+        <div id="image-holder">
+            <img id="image-object" src="#" />
+        </div>
+    </section>
 
+    <section id="sidebar">
+        <div id="sidebar-filter">
+            <input type="text" placeholder="filter..." data-query="val(filterValue)"/>
+        </div>
+        <div id="sidebar-list" data-query="each(images.view)">
+            <div class="sidebar-item">
+                &#128196; {{name}}
+            </div>
+        </div>
+    </section>
 
 </body>
 </html>
