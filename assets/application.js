@@ -12,7 +12,6 @@ var Image = App.Model({
         });
         this._application.Gallery.image(this.name());
         this.active(true);
-        console.log(this.collection());
     }
 });
 
