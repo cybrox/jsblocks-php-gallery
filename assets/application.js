@@ -43,22 +43,26 @@ App.View('Gallery', {
             if (this.images()[this.index() - 1] == undefined) return;
             this.index(this.index() - 1);
             this.images()[this.index()].setImage();
-            window.scrollBy(0, -27);
+            window.scrollTo(0, (this.index() * 27));
         }
         if (e.which == 39) {
             if (this.images()[this.index() + 1] == undefined) return;
             this.index(this.index() + 1);
             this.images()[this.index()].setImage();
-            window.scrollBy(0, 27);
+            window.scrollTo(0, (this.index() * 27));
         }
     },
 
     init: function() {
         if (window.location.hash.length > 3) {
             var thisImg = window.location.hash.replace('#', '');
+            var imgindx = window.__imgndx || 0;
 
-            this.images()[window.__imgndx].active(true);
+            this.images()[imgindx].active(true);
+            this.index(imgindx);
             this.image(thisImg);
+
+            window.scrollTo(0, (this.index() * 27));
             return;
         }
 
