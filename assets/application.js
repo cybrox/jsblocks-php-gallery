@@ -2,6 +2,7 @@ var App = blocks.Application();
 
 var Image = App.Model({
     name: App.Property(),
+    index: App.Property(),
 
     active: blocks.observable(false),
 
@@ -11,6 +12,7 @@ var Image = App.Model({
             img.active(false);
         });
         this._application.Gallery.image(this.name());
+        this._application.Gallery.index(this.index());
         this.active(true);
     }
 });

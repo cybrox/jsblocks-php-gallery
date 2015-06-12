@@ -1,9 +1,10 @@
 <?php
 
+    require_once('./config.php'); /* config defines PASSWD */
     define("IMGDIR", "./s");
 
     // Shitty auth
-    $permitted = ($_GET['pw'] == 'zitronenkuchen');
+    $permitted = ($_GET['pw'] == PASSWD);
 
     $images = array();
     if ($directory = opendir(IMGDIR)) {
@@ -38,6 +39,7 @@
         var imageNeeded = window.location.hash.replace('#', '');
         window.__images.forEach(function(image, index) {
             if (image.name == imageNeeded) window.__imgndx = index;
+            window.__images[index].index = index;
         });
 
         if (imageNeeded == "") imageNeeded = "???";
