@@ -58,6 +58,10 @@ App.View('Gallery', {
             var thisImg = window.location.hash.replace('#', '');
             var imgindx = window.__imgndx || 0;
 
+            this.images().forEach(function(image) {
+                image.active(false);
+            });
+
             this.images()[imgindx].active(true);
             this.index(imgindx);
             this.image(thisImg);

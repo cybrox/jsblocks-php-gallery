@@ -2,12 +2,15 @@
 
     define("IMGDIR", "./s");
 
+    // Shitty auth
+    $permitted = ($_GET['pw'] == 'zitronenkuchen');
+
     $images = array();
     if ($directory = opendir(IMGDIR)) {
         while ($image = readdir($directory)) {
             if ($image != "." && $image != "..") {
                 if (in_array(substr($image, -4), array('.jpg', '.JPG', '.png', '.PNG'))) {
-                    if ($_GET['pw'] == 'zitronenkuchen') {
+                    if ($permitted) {
                         array_push($images, $image);
                     } else {
                         if (strstr($image, "_")) array_push($images, $image);
@@ -36,8 +39,14 @@
             if (image.name == imageNeeded) window.__imgndx = index;
         });
 
+        <?php if($permitted): ?>
         if (window.__imgndx === undefined)
             window.location.hash = "_missing.jpg";
+        <?php else: ?>
+        if (window.__imgndx === undefined)
+            window.__images.unshift({name: imageNeeded, active: true});
+            window.__imgndx = 0;
+        <?php endif; ?>
     </script>
 
     <script type="text/javascript" src="http://jsblocks.com/blocks/0.3.2/blocks.js"></script>
