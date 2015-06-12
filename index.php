@@ -29,6 +29,15 @@
     <script type="text/javascript">
         window.__imgdir = "<?php echo IMGDIR; ?>";
         window.__images = <?php echo json_encode($images); ?>;
+
+        var imageExists = false;
+        var imageNeeded = window.location.hash.replace('#', '');
+        window.__images.forEach(function(image, index) {
+            if (image.name == imageNeeded) window.__imgndx = index;
+        });
+
+        if (window.__imgndx === undefined)
+            window.location.hash = "_missing.jpg";
     </script>
 
     <script type="text/javascript" src="http://jsblocks.com/blocks/0.3.2/blocks.js"></script>

@@ -57,8 +57,7 @@ App.View('Gallery', {
         if (window.location.hash.length > 3) {
             var thisImg = window.location.hash.replace('#', '');
 
-            this.images.push(Image({name: thisImg, active: true}));
-            this.images.reverse();
+            this.images()[window.__imgndx].active(true);
             this.image(thisImg);
             return;
         }
