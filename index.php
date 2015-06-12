@@ -18,7 +18,7 @@
         closedir($directory);
     }
 
-    sort($images);
+    rsort($images);
     $images = array_map(function($x){ return array("name" => $x); }, $images);
 
 ?>
