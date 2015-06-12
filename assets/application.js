@@ -20,7 +20,8 @@ var Images = App.Collection(Image);
 
 App.View('Gallery', {
     filterValue: blocks.observable(),
-    image: blocks.observable(),
+    image: blocks.observable("_missing.jpg"),
+    index: blocks.observable(0),
 
     images: Images(window.__images).extend('filter', function (value) {
         var filter = this.filterValue();
@@ -37,7 +38,31 @@ App.View('Gallery', {
         window.open(url);
     },
 
+    handleAction: function(e) {
+        if (e.which == 37) {
+            if (this.images()[this.index() - 1] == undefined) return;
+            this.index(this.index() - 1);
+            this.images()[this.index()].setImage();
+            window.scrollBy(0, -27);
+        }
+        if (e.which == 39) {
+            if (this.images()[this.index() + 1] == undefined) return;
+            this.index(this.index() + 1);
+            this.images()[this.index()].setImage();
+            window.scrollBy(0, 27);
+        }
+    },
+
     init: function() {
-        this.images()[0].setImage();
+        if (window.location.hash !== undefined) {
+            var thisImg = window.location.hash.replace('#', '');
+            this.images.push(Image({name: thisImg, active: true}));
+            this.images.reverse();
+            this.image(thisImg);
+            return;
+        }
+
+        if (this.images()[0] !== undefined)
+            this.images()[0].setImage();
     }
 });

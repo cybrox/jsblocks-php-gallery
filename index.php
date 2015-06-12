@@ -1,17 +1,25 @@
 <?php
 
-    define("IMGDIR", "./images");
+    define("IMGDIR", "./s");
 
     $images = array();
     if ($directory = opendir(IMGDIR)) {
         while ($image = readdir($directory)) {
             if ($image != "." && $image != "..") {
-                if (in_array(substr($image, -4), array('.jpg', '.JPG', '.png', '.PNG')))
-                    array_push($images, array("name" => $image));
+                if (in_array(substr($image, -4), array('.jpg', '.JPG', '.png', '.PNG'))) {
+                    if ($_GET['pw'] == 'zitronenkuchen') {
+                        array_push($images, $image);
+                    } else {
+                        if (strstr($image, "_")) array_push($images, $image);
+                    }
+                }
             }
         }
         closedir($directory);
     }
+
+    sort($images);
+    $images = array_map(function($x){ return array("name" => $x); }, $images);
 
 ?>
 <html>
@@ -27,7 +35,7 @@
     <script type="text/javascript" src="assets/application.js"></script>
     <link rel="stylesheet" href="assets/application.css" />
 </head>
-<body data-query="view(Gallery)">
+<body data-query="view(Gallery).on('keydown', Gallery.handleAction)">
 
     <section id="image">
         <div id="image-holder">
