@@ -48,9 +48,10 @@
         if (window.__imgndx === undefined)
             window.location.hash = "_missing.jpg";
         <?php else: ?>
-        if (window.__imgndx === undefined)
+        if (window.__imgndx === undefined) {
             window.__images.unshift({name: imageNeeded, active: true});
             window.__imgndx = 0;
+        }
         <?php endif; ?>
     </script>
 
