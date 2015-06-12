@@ -9,6 +9,7 @@
     if ($directory = opendir(IMGDIR)) {
         while ($image = readdir($directory)) {
             if ($image != "." && $image != "..") {
+                if ($image == "_missing.jpg") continue;
                 if (in_array(substr($image, -4), array('.jpg', '.JPG', '.png', '.PNG'))) {
                     if ($permitted) {
                         array_push($images, $image);
@@ -39,6 +40,8 @@
             if (image.name == imageNeeded) window.__imgndx = index;
         });
 
+        if (imageNeeded == "") imageNeeded = "???";
+
         <?php if($permitted): ?>
         if (window.__imgndx === undefined)
             window.location.hash = "_missing.jpg";
@@ -58,6 +61,12 @@
     <section id="image">
         <div id="image-holder">
             <img id="image-object" src="<?php echo IMGDIR; ?>/{{image}}" data-query="click(openImage).on('touchend', openImage)"/>
+            <script type="text/javascript">
+                window.__imgobj = document.getElementById('image-object');
+                window.__imgobj.onerror = function() {
+                    window.__imgobj.src = "<?php echo IMGDIR; ?>/_missing.jpg";
+                }
+            </script>
         </div>
     </section>
 
