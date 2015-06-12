@@ -1,2 +1,3 @@
 # Ignore files in image folder
 images/*
+config.php
