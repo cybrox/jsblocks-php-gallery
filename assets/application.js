@@ -54,8 +54,9 @@ App.View('Gallery', {
     },
 
     init: function() {
-        if (window.location.hash !== undefined) {
+        if (window.location.hash.length > 3) {
             var thisImg = window.location.hash.replace('#', '');
+
             this.images.push(Image({name: thisImg, active: true}));
             this.images.reverse();
             this.image(thisImg);
